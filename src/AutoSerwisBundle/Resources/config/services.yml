@@ -1,0 +1,4 @@
+services:
+#    auto_serwis.example:
+#        class: AutoSerwisBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

@@ -1,0 +1,4 @@
+auto_serwis:
+    resource: "@AutoSerwisBundle/Controller/"
+    type:     annotation
+    prefix:   /
