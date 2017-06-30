@@ -1,6 +1,5 @@
 auto_serwis:
-    resource: "@AutoSerwisBundle/Controller/"
-    type:     annotation
+    resource: "@AutoSerwisBundle/Resources/config/routing.yml"
     prefix:   /
     
 fos_user:

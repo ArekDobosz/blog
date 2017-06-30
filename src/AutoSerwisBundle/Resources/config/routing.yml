@@ -1,0 +1,4 @@
+auto_serwis_main:
+    resource: "@AutoSerwisBundle/Controller/MainController.php"
+    type:     annotation
+    prefix:   /

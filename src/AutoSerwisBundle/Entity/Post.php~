@@ -1,0 +1,73 @@
+<?php
+
+namespace AutoSerwisBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="post")
+ */
+class Post {
+    
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\Column(type="string", length=120, unique=true)
+     */
+    private $title;
+    
+    /**
+     * @ORM\Column(type="string", length=40, unique=true)
+     */
+    private $slug;
+    
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+    
+    /**
+     * @ORM\Column(type="string", length=80, nullable=true)
+     */
+    private $thumbnail = null;
+    
+    /**
+     * @ORM\ManyToOne(
+     *      targetEntity = "Category",
+     *      inversedBy = "posts"
+     * )
+     * @ORM\JoinColumn(
+     *      name = "category_id",
+     *      referencedColumnName = "id",
+     *      onDelete = "SET NULL"
+     * )
+     */
+    private $category;
+    
+    /**
+     * @ORM\ManyToMany(
+     *      targetEntity = "Tag",
+     *      inversedBy = "posts"
+     * )
+     * @ORM\JoinTable(
+     *      name = "post_tags"
+     * )
+     */
+    private $tags;
+    
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    private $author;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createDate;    
+}
