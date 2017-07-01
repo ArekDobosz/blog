@@ -1,6 +1,48 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block pageContent %}
-    <div class="alert alert-success">Hello world!</div>
-    <a href="#" class="btn btn-success">btn</a>
+    
+    <div class="left-side">
+        <h2 class="text-center">{{ title | raw }}</h2>
+        <hr>
+        {% for post in pagination %}
+            
+            <div class="post">
+                <h3>{{ post.title }}</h3>
+                <div class="detals">
+                    <div class="author">dodał: {{ post.author }}</div> <div class="create-date">dnia {{ post.createDate | date ('d-m-Y H:m') }}</div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><div class="cat">Kategoria: <a href="{{ path('category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a></div>
+                        <div class="tag">Tag:
+                            {% for tag in post.tags %}
+                                <a href="{{ path('tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <img src="{{ asset('bundles/autoserwis/img/default-thumbnail.jpg') }}">
+                        <div class="post-content">
+                            {{ post.content | raw }}
+                        </div>
+                    </div>
+                </div>
+                <div class="comments">
+                    <a href="{{ path('post', { 'slug': post.slug }) }}">Komentarzy(20)</a>
+                </div>
+            </div>
+        {% else %}
+            <h4 class="text-center">Brak postów do wyświetlenia</h4>
+        {% endfor %}
+        
+        {{ knp_pagination_render(pagination) }}
+        
+    </div>
+
+    <div class="right-side text-center search-form">
+        <form action="{{ path('search') }}">
+            <input type="text" name="search" value="{{ search is defined ? search : '' }}" placeholder="Wyszukaj">
+        </form>
+    </div>
+    
 {% endblock %}

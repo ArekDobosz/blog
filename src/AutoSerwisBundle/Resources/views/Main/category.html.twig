@@ -1,0 +1,8 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block pageContent %}
+    
+    <h3> Wpisy z kategorią: {{ categoryName }} </h3>
+    
+    {{ dump(pagination) }}
+{% endblock %}
