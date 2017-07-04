@@ -1,8 +1,50 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+{#{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
     <div>
         <input type="submit" class="btn btn-success btn-block" value="{{ 'registration.submit'|trans }}" />
     </div>
-{{ form_end(form) }}
+{{ form_end(form) }}#}
+{% if app.user %}
+    Najpierw musisz się <a href="{{ path('fos_user_security_logout') }}">wylogować</a>
+{% else %}
+    <div class="registration">
+        <img src="http://orig14.deviantart.net/f6c5/f/2015/068/7/d/minecraft_avatar___odto22_by_odto22-d8l0yi5.jpg">
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+            <div id="fos_user_registration_form">
+                <div class="form-group">
+                    {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'form.email'|trans } }) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                <div class="form-group">
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': 'form.username'|trans } }) }}
+                {{ form_errors(form.username) }}
+                </div>
+                <div class="form-group">
+                {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'form.password'|trans } }) }}
+                {{ form_errors(form.plainPassword.first) }}
+                </div>
+                <div class="form-group">
+                {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'form.password_confirmation'|trans } }) }}
+                {{ form_errors(form.plainPassword.second) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.firstName, { 'attr': {'class': 'form-control', 'placeholder': 'Imię' } }) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'placeholder': 'Nazwisko' } }) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+
+                {{ form_rest(form) }}
+
+            </div>
+            <div>
+                <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'registration.submit'|trans }}">
+            </div>
+        {{ form_end(form) }}
+        <a class="pull-left" href="{{ path('fos_user_security_login') }}">zaloguj</a>
+    </div>
+{% endif %}

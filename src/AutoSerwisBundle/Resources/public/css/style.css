@@ -12,9 +12,17 @@ a {
 }
 
 .form-signin {
-    max-width: 330px;
-    padding: 15px;
+    max-width: 420px;
+    padding: 25px;
     margin: 0 auto;
+    box-shadow: 1px 1px 2px #000;
+    border-radius: 5px;
+    background-color: #42c8f4;
+}
+
+.form-signin a {
+    color: #000;
+    padding-bottom: 10px;
 }
 
 .form-signin .form-signin-heading, .form-signin .checkbox {
@@ -159,7 +167,7 @@ hr {
 .right-menu, .tags {
     margin-top: 25px;
     padding: 5px;
-    border: .5px solid #000;
+    box-shadow: 1px 1px 2px #000;
     border-radius: 5px;
 }
 
@@ -178,4 +186,27 @@ hr {
 .tags .tags-content a {
     display: inline-block;
     padding: 3px;
+}
+
+.registration {
+    max-width: 420px;
+    padding: 25px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+    background-color: #42c8f4;
+    margin: 0 auto;
+    box-shadow: 2px 2px 2px #000;
+}
+
+.registration img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    padding-bottom: 10px;
+    margin-left: 110px;
+}
+
+.registration a {
+    margin-top: 5px;
+    color: #000;
 }
