@@ -37,8 +37,16 @@ class MainController extends Controller
      * )
      */
     public function postAction($slug) {
+        $Repo = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post');
+        $post = $Repo->findOneBySlug($slug);
         
-        return $this->render('AutoSerwisBundle:post.html.twig');
+        if(null === $post) {
+            throw $this->createNotFoundException('Nie znaleziono postu');
+        }
+        
+        return $this->render('AutoSerwisBundle:Main:post.html.twig', array(
+            'post' => $post
+        ));
     }
     
     /**

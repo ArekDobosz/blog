@@ -1,7 +1,6 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block pageContent %}
-    
     <div class="left-side">
         <h2 class="text-center">{{ title | raw }}</h2>
         <hr>
@@ -20,12 +19,14 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <img src="{{ asset('bundles/autoserwis/img/default-thumbnail.jpg') }}">
-                        <div class="post-content">
-                            {{ post.content | raw }}
+                    <a href="{{ path('post', {'slug': post.slug}) }}">
+                        <div class="panel-body">
+                            <img src="{{ asset('bundles/autoserwis/img/default-thumbnail.jpg') }}">
+                            <div class="post-content">
+                                {{ post.content | cutPost}}
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="comments">
                     <a href="{{ path('post', { 'slug': post.slug }) }}">Komentarzy(20)</a>
@@ -34,8 +35,9 @@
         {% else %}
             <h4 class="text-center">Brak postów do wyświetlenia</h4>
         {% endfor %}
-        
-        {{ knp_pagination_render(pagination) }}
+        <div class="text-center">
+        {{ knp_pagination_render(pagination, 'AutoSerwisBundle:Pagination:pagination.html.twig') }}
+        </div>
         
     </div>
 
@@ -43,6 +45,23 @@
         <form action="{{ path('search') }}">
             <input type="text" name="search" value="{{ search is defined ? search : '' }}" placeholder="Wyszukaj">
         </form>
+    </div>
+        
+    <div class="right-side">
+        <div class="right-menu">
+            <h4>Kategorie</h4>
+            <hr>
+            <div class="right-menu-content">
+                {{ printMenu() }}
+            </div>
+        </div>
+        <div class="tags">
+            <h4>Tags</h4>
+            <hr>
+            <div class="tags-content">
+                {{ tagsCloud() }}            
+            </div>
+        </div>
     </div>
     
 {% endblock %}

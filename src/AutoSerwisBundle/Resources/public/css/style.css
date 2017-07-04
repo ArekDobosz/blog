@@ -3,6 +3,10 @@ body {
     font-family: 'Lobster Two';
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .log-in {
     margin-top: 10px;
 }
@@ -61,7 +65,7 @@ body {
     padding: 0;
 }
 
-.post {
+.post, .single-post {
     padding: 20px 0;
     box-shadow: 2px 2px 4px #000;
     margin: 20px 0;
@@ -73,14 +77,15 @@ body {
     transform: scale(1.04);
 }
 
-.post .panel img {
+.post .panel img, .single-post .panel img{
     width: 100%;
     padding-bottom: 20px;
     background-size: cover;
 }
 
-.post .panel .post-content {
+.post .panel .post-content,  .single-post .panel .post-content {
     padding: 15px;
+    color: #000;
 }
 
 hr {
@@ -94,8 +99,8 @@ hr {
 
 .detals {
     display: block;
-    /*margin: 50px;*/
     padding-bottom: 10px;
+    margin-top: -10px;
 }
 .detals .author {
     float:left;
@@ -149,4 +154,28 @@ hr {
 
 .search-form input[type="text"] {
     color: #000;
+}
+
+.right-menu, .tags {
+    margin-top: 25px;
+    padding: 5px;
+    border: .5px solid #000;
+    border-radius: 5px;
+}
+
+.right-menu h4 {
+    margin-left: 10px;
+}
+
+.right-menu-content {
+    margin-top: 20px;
+}
+
+.tags h4 {
+    margin-left: 10px;
+}
+
+.tags .tags-content a {
+    display: inline-block;
+    padding: 3px;
 }
