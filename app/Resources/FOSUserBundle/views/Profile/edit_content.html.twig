@@ -20,8 +20,8 @@
         </div>
         <img src="{{ asset(app.user.avatar) }}" width="150px">
         <div class="form-group">
-            {{ form_widget(form.avatar, { 'attr': {'class': 'form-control', 'value': app.user.avatar , 'placeholder': 'Obecne hasło'} }) }}
-            <div class="custom-error">{{ form_errors(form.avatar) }}</div>
+            {{ form_widget(form.avatarFile, { 'attr': {'class': 'form-control'} }) }}
+            <div class="custom-error">{{ form_errors(form.avatarFile) }}</div>
         </div>
         <div class="form-group">
             {{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': 'Obecne hasło'} }) }}
@@ -37,3 +37,11 @@
 </div>
 
 {#{{ dump(app.user) }}#}
+
+{#@Assert\Image(
+     *      minWidth = 50,
+     *      maxWidth = 150,
+     *      minHeight = 50,
+     *      maxHeight = 150,
+     *      maxSize = "1M",
+     * )#}

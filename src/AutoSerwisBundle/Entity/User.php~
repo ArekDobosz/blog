@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
+    const DEFAULT_AVATAR = 'default.png';
     const UPLOAD_DIR = 'uploads/avatars/';
-    const DEFAULT_AVATAR = 'default.jpg';
     
     
     /**
@@ -49,18 +50,17 @@ class User extends BaseUser
      * @var UploadedFile
      * 
      * @Assert\Image(
-     *      minWidth=50,
-     *      minHeight=50,
-     *      maxWidth=150,
-     *      maxHeight=150,
-     *      maxSize="1M",
-     *      groups={"ChangeDetails"}
+     *      minWidth = 50,
+     *      maxWidth = 150,
+     *      minHeight = 50,
+     *      maxHeight = 150,
+     *      maxSize = "1M",
      * )
      */
     private $avatarFile;
 
-    private $avatarTemp;
-
+    private $avatarTemp; 
+    
     
     public function __construct()
     {
@@ -116,34 +116,6 @@ class User extends BaseUser
     }
 
     /**
-     * Set avatarFile
-     *
-     * @param string UploadedFile $uploadedFile
-     *
-     * @return User
-     */
-    public function setAvatarFile(UploadedFile $uploadedFile)
-    {
-        $this->avatar = $uploadedFile;
-        $this->updateDate = new \DateTime();
-
-        return $this;
-    }
-
-    /**
-     * Get avatarFile
-     *
-     * @return string
-     */
-    public function getAvatarFile()
-    {
-        if($this->avatar == null) {
-            return User::UPLOAD_DIR.User::DEFAULT_AVATAR;
-        }
-        return User::UPLOAD_DIR.$this->avatar;
-    }
-    
-    /**
      * Set avatar
      *
      * @param string $avatar
@@ -164,9 +136,11 @@ class User extends BaseUser
      */
     public function getAvatar()
     {
-        return $this->avatar;
-    }
-    
+        if($this->avatar == null){
+            return User::UPLOAD_DIR.USER::DEFAULT_AVATAR; // konkatenacja zwróci uploads/avatars/default-avatar.jpg
+        }
+        return User::UPLOAD_DIR.$this->avatar;
+    }   
 
     /**
      * Set updateDate
@@ -196,14 +170,17 @@ class User extends BaseUser
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function preSave(){
-        if($this->getAvatarFile() !== null){
-            if($this->avatar !== null){
+    public function preSave() {
+//        $this->avatar = $this->getAvatarFile()->guessClientExtension();
+//        $this->avatar = 'avatar2.jpg';
+        if(null !== $this->getAvatarFile()){
+            
+            if(null !== $this->avatar){
                 $this->avatarTemp = $this->avatar;
-                $avatarName = sha1(uniqid(null, true));
-                $this->avatar = $avatarName.'.'.$this->getAvatarFile()->guessExtension();
             }
-        }
+            $avatarName = sha1(uniqid(null, true));
+//            $this->avatar = $avatarName.'.'.$this->getAvatarFile()->guessExtension();
+        }       
     }
     
     /**
@@ -211,19 +188,20 @@ class User extends BaseUser
      * @ORM\PostUpdate
      */
     public function postSave(){
-        if($this->getAvatarFile() !== null){
-            $this->getAvatarFile()->move($this->getRootDir(), $this->avatar);
-        }
-        
-        unset($this->avatarFile);
-        
-        if($this->avatarTemp !== null) {
-            unlink($this->getRootDir().$this->avatarTemp);
-            unset($this->avatarTemp);
+//        $this->avatar = 'avatar3.jpg';
+        if(null !== $this->getAvatarFile()){
+            
+            $this->getAvatarFile()->move($this->getUploadRootDir(), $this->avatar);
+            unset($this->avatarFile);
+            
+            if(null !== $this->avatarTemp){
+                unlink($this->getUploadRootDir().$this->avatarTemp);
+                unset($this->avatarTemp);
+            }
         }
     }
     
-    public function getRootDir(){
-        return __DIR__.'../../../../web'.User::UPLOAD_DIR;
+    public function getUploadedRootDir(){
+        return __DIR__.'/../../../web/'.User::UPLOAD_DIR;
     }
 }

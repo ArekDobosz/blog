@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class User extends BaseUser
 {
-    const UPLOAD_DIR = 'uploads/avatars/';
     const DEFAULT_AVATAR = 'default.png';
+    const UPLOAD_DIR = 'uploads/avatars/';
     
     
     /**
@@ -51,16 +51,30 @@ class User extends BaseUser
      * 
      * @Assert\Image(
      *      minWidth = 50,
-     *      maxWidth = 150,
+     *      maxWidth = 400,
      *      minHeight = 50,
-     *      maxHeight = 150,
+     *      maxHeight = 400,
      *      maxSize = "1M",
      * )
      */
     private $avatarFile;
 
-    private $avatarTemp;
+    private $avatarTemp; 
+    
+    public function getAvatarFile() {
+        return $this->avatarFile;
+    }
 
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setAvatarFile(UploadedFile $avatarFile) {
+        $this->avatarFile = $avatarFile;
+        $this->updateDate = new \DateTime();
+        return $this;
+    }
     
     public function __construct()
     {
@@ -115,16 +129,6 @@ class User extends BaseUser
         return $this->lastName;
     }
 
-    public function getAvatarFile() {
-        return $this->avatarFile;
-    }
-
-    public function setAvatarFile(UploadedFile $avatarFile = null) {
-        $this->avatarFile = $avatarFile;
-        $this->updateDate = new \DateTime();
-        return $this;
-    }
-    
     /**
      * Set avatar
      *
@@ -150,8 +154,7 @@ class User extends BaseUser
             return User::UPLOAD_DIR.USER::DEFAULT_AVATAR; // konkatenacja zwróci uploads/avatars/default-avatar.jpg
         }
         return User::UPLOAD_DIR.$this->avatar;
-    }
-    
+    }   
 
     /**
      * Set updateDate
@@ -182,7 +185,6 @@ class User extends BaseUser
      * @ORM\PreUpdate
      */
     public function preSave() {
-        $this->avatar = 'avatar2.jpg';
         if(null !== $this->getAvatarFile()){
             
             if(null !== $this->avatar){
@@ -200,11 +202,11 @@ class User extends BaseUser
     public function postSave(){
         if(null !== $this->getAvatarFile()){
             
-            $this->getAvatarFile()->move($this->getUploadRootDir(), $this->avatar);
+            $this->getAvatarFile()->move($this->getUploadedRootDir(), $this->avatar);
             unset($this->avatarFile);
             
             if(null !== $this->avatarTemp){
-                unlink($this->getUploadRootDir().$this->avatarTemp);
+                unlink($this->getUploadedRootDir().$this->avatarTemp);
                 unset($this->avatarTemp);
             }
         }
