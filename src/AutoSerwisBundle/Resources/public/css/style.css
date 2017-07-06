@@ -188,7 +188,7 @@ hr {
     padding: 3px;
 }
 
-.registration {
+.registration, .paswd-reset, .form-edit, .change-paswd, .fos_user_user_show {
     max-width: 420px;
     padding: 25px;
     padding-bottom: 30px;
@@ -206,7 +206,12 @@ hr {
     margin-left: 110px;
 }
 
-.registration a {
+.registration a, .form-edit a, .change-paswd a, .fos_user_user_show a {
     margin-top: 5px;
     color: #000;
+}
+
+.custom-error ul li {
+    margin-top: 5px;
+    color: red;
 }

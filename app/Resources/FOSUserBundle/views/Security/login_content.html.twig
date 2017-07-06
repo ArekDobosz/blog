@@ -20,13 +20,13 @@
 
         <div class="checkbox">
             <label for="remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" selected="selected"/>
                 {{ 'security.login.remember_me'|trans }}
             </label>
         </div>
 
         <input class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-        <a class="pull-left" href="{{ path('main_page') }}">strona główna</a>
+        <a class="pull-left" href="{{ path('fos_user_resetting_request') }}">przypomnij hasło</a>
         <a class="pull-right" href="{{ path('fos_user_registration_register') }}">zarejestruj</a>
     </form>
         

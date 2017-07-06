@@ -80,6 +80,20 @@ fos_user:
     registration:
         form:
             type: AutoSerwisBundle\Form\RegistrationType 
+    resetting:
+        token_ttl: 86400
+        email:
+            from_email:
+                address:        "%mailer_user%"
+                sender_name:    "%mailer_user%"
+            template:   '@FOSUser/Resetting/email.txt.twig'
+        form:
+            type:               FOS\UserBundle\Form\Type\ResettingFormType # or 'fos_user_resetting' on Symfony < 2.8
+            name:               fos_user_resetting_form
+            validation_groups:  [ResetPassword, Default]
+    profile:
+        form:
+            type: AutoSerwisBundle\Form\ChangeDetailsType
         
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -1,8 +1,39 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
+<div class="form-edit">
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    <div class="form-group">
+        <div class="form-group">
+            {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'value': app.user.username, 'placeholder': 'Nazwa użytkownika' } }) }}
+            <div class="custom-error">{{ form_errors(form.username) }}</div>
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'value': app.user.email, 'placeholder': 'Adres e-mail' } }) }}
+            <div class="custom-error">{{ form_errors(form.email) }}</div>
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.firstName, { 'attr': {'class': 'form-control', 'value': app.user.firstName , 'placeholder': 'Imię'} }) }}
+            <div class="custom-error">{{ form_errors(form.firstName) }}</div>
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.lastName, { 'attr': {'class': 'form-control', 'value': app.user.lastName , 'placeholder': 'Obecne hasło'} }) }}
+            <div class="custom-error">{{ form_errors(form.lastName) }}</div>
+        </div>
+        <img src="{{ asset(app.user.avatar) }}" width="150px">
+        <div class="form-group">
+            {{ form_widget(form.avatar, { 'attr': {'class': 'form-control', 'value': app.user.avatar , 'placeholder': 'Obecne hasło'} }) }}
+            <div class="custom-error">{{ form_errors(form.avatar) }}</div>
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': 'Obecne hasło'} }) }}
+            <div class="custom-error">{{ form_errors(form.current_password) }}</div>
+        </div>
+        <div>
+            <input class="btn btn-primary btn-block" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
     </div>
 {{ form_end(form) }}
+<a class="pull-left" href="{{ path('main_page') }}">strona główna</a>
+<a class="pull-right" href="{{ path('fos_user_change_password') }}">zmień hasło</a>
+</div>
+
+{#{{ dump(app.user) }}#}
