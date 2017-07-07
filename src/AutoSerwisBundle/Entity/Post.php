@@ -63,14 +63,31 @@ class Post {
     private $tags;
     
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\ManyToOne(
+     *      targetEntity = "User"
+     * )
+     * @ORM\JoinColumn(
+     *      name = "author_id",
+     *      referencedColumnName = "id",
+     * 
+     * )
      */
     private $author;
     
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createDate;    
+    private $createDate;  
+    
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity = "Comment",
+     *      mappedBy = "post"
+     * )
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $comments;
+    
     /**
      * Constructor
      */
@@ -188,11 +205,11 @@ class Post {
     /**
      * Set author
      *
-     * @param string $author
+     * @param \AutoSerwisBundle\Entity\User $author
      *
      * @return Post
      */
-    public function setAuthor($author)
+    public function setAuthor(\AutoSerwisBundle\Entity\User $author)
     {
         $this->author = $author;
 
@@ -202,7 +219,7 @@ class Post {
     /**
      * Get author
      *
-     * @return string
+     * @return AutoSerwisBundle\Entity\User
      */
     public function getAuthor()
     {
@@ -299,5 +316,39 @@ class Post {
         if(null === $this->slug){
             $this->setSlug($this->getTitle());
         }
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AutoSerwisBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\AutoSerwisBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AutoSerwisBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AutoSerwisBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

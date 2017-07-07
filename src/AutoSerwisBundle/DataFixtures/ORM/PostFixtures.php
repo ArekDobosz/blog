@@ -22,7 +22,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'promocje',
             'tags' => array('promocje', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'arqus',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -30,7 +30,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'promocje',
             'tags' => array('promocje', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'Emik',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -38,7 +38,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'osobowe',
             'tags' => array('promocje', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'Emik123',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -46,7 +46,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'osobowe',
             'tags' => array('tuning', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'Emik123',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -54,7 +54,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'odrzutowe',
             'tags' => array('auto', 'tuning'),
-            'author' => 'Admin',
+            'author' => 'arqus',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -62,7 +62,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'odrzutowe',
             'tags' => array('tuning', 'auto'),
-            'author' => 'Admin',
+            'author' => 'arqus',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -70,7 +70,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'wodne',
             'tags' => array('promocje', 'silniki'),
-            'author' => 'Admin',
+            'author' => 'arqus',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -78,7 +78,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'wodne',
             'tags' => array('silniki', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'Emik',
             'createDate' => '2017-06-30 10:23:11'
             ],
             [
@@ -86,16 +86,16 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             'content' => 'This example extends the layout template from the layout of your app. The content block is where the main content of each page is rendered. This is why the fos_user_content block has been placed inside of it. This will lead to the desired effect of having the output from the FOSUserBundle actions integrated into our applications layout, preserving the look and feel of the application.',
             'category' => 'promocje',
             'tags' => array('silniki', 'oleje'),
-            'author' => 'Admin',
+            'author' => 'Emik',
             'createDate' => '2017-06-30 10:23:11'
             ],
         ];
         
-        foreach($postList as $post) {
+        foreach($postList as $idx => $post) {
             $Post = new Post();
             $Post->setTitle($post['title'])
                     ->setContent($post['content'])
-                    ->setAuthor($post['author'])
+                    ->setAuthor($this->getReference('user-'.$post['author']))
                     ->setCreateDate(new \DateTime($post['createDate']));
             
             $Post->setCategory($this->getReference('category_'.$post['category']));
@@ -103,6 +103,8 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface{
             foreach($post['tags'] as $tag) {
                 $Post->addTag($this->getReference('tag_'.$tag));
             }
+            $this->addReference('post-'.$idx, $Post);
+            
             $manager->persist($Post);
         }
         $manager->flush();

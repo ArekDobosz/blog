@@ -4,6 +4,10 @@ namespace AutoSerwisBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+use AutoSerwisBundle\Entity\Comment;
+use AutoSerwisBundle\Form\CommentType;
 
 class MainController extends Controller
 {
@@ -36,7 +40,7 @@ class MainController extends Controller
      *      name = "post"
      * )
      */
-    public function postAction($slug) {
+    public function postAction($slug, Request $Request) {
         $Repo = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post');
         $post = $Repo->findOneBySlug($slug);
         
@@ -44,8 +48,31 @@ class MainController extends Controller
             throw $this->createNotFoundException('Nie znaleziono postu');
         }
         
+        if(null !== $this->getUser()){
+            $Comment = new Comment();
+            $Comment->setAuthor($this->getUser())
+                    ->setPost($post);
+            
+            $form = $this->createForm(CommentType::class, $Comment);
+            
+            if($Request->isMethod('POST')) {
+                $form->handleRequest($Request);
+                if($form->isValid() && $form->isSubmitted()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($Comment);
+                    $em->flush();
+                    
+                    $this->get('session')->getFlashBag()->add('success', 'Komentarz został dodany.');
+                    return $this->redirectToRoute('post', array('slug' => $slug));
+                }
+            }
+        }
+        
+//        $form = $this->createForm(CommentType::class, )
+        
         return $this->render('AutoSerwisBundle:Main:post.html.twig', array(
-            'post' => $post
+            'post' => $post,
+            'form' => isset($form) ? $form->createView() : null
         ));
     }
     

@@ -48,7 +48,7 @@
                         
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}#} 
-                            <i class="fa fa-user-o" aria-hidden="true"></i> <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.username }}</a> |
+                            <i class="fa fa-user-o" aria-hidden="true"></i> <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |
                             <a href="{{ path('fos_user_security_logout') }}">
                                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                             </a>

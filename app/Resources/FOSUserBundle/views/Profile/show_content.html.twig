@@ -1,7 +1,13 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="fos_user_user_show text-center">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <a class="pull-left" href="{{ path('main_page') }}"><< główna strona</a>
+<div class="fos_user_user_show profile">
+    <img src="{{ asset(app.user.avatar) }}" width="150px">
+    <div class="text-center">
+        <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+        <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+        <p>Imię: {{ user.firstName }}</p>
+        <p>Nazwisko: {{ user.lastName }}</p>
+        <a class="btn btn-success btn-block" href="{{ path('main_page') }}">Powrót do strony głównej</a>
+        <a class="btn btn-success btn-block" href="{{ path('fos_user_profile_edit') }}">Edytuj dane</a>
+    </div>
 </div>

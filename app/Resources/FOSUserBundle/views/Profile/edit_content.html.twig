@@ -1,5 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<div class="form-edit">
+<div class="form-edit profile">
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
     <div class="form-group">
         <div class="form-group">
@@ -19,9 +19,12 @@
             <div class="custom-error">{{ form_errors(form.lastName) }}</div>
         </div>
         <img src="{{ asset(app.user.avatar) }}" width="150px">
-        <div class="form-group">
-            {{ form_widget(form.avatarFile, { 'attr': {'class': 'form-control'} }) }}
+            <div class="form-group">
+                {{ form_widget(form.avatarFile, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
             <div class="custom-error">{{ form_errors(form.avatarFile) }}</div>
+            </div>
         </div>
         <div class="form-group">
             {{ form_widget(form.current_password, { 'attr': {'class': 'form-control', 'placeholder': 'Obecne hasło'} }) }}
@@ -30,10 +33,10 @@
         <div>
             <input class="btn btn-primary btn-block" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
         </div>
+        <a class="btn btn-success btn-block" href="{{ path('fos_user_profile_show') }}">Powrót</a>
+        <a class="btn btn-success btn-block" href="{{ path('fos_user_change_password') }}">Zmień hasło</a>
     </div>
 {{ form_end(form) }}
-<a class="pull-left" href="{{ path('main_page') }}">strona główna</a>
-<a class="pull-right" href="{{ path('fos_user_change_password') }}">zmień hasło</a>
 </div>
 
 {#{{ dump(app.user) }}#}

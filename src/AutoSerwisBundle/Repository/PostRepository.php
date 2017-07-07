@@ -9,8 +9,9 @@ class PostRepository extends EntityRepository{
     public function getQueryBuilder(array $params = array()) {
         
         $qb = $this->createQueryBuilder('p')
-                ->select('p, c, t')
+                ->select('p, c, t, a')
                 ->leftJoin('p.category', 'c')
+                ->leftJoin('p.author', 'a')
                 ->leftJoin('p.tags', 't');
         
         if(!empty($params['orderBy'])) {
