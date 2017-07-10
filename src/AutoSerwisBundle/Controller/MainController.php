@@ -68,11 +68,9 @@ class MainController extends Controller
             }
         }
         
-//        $form = $this->createForm(CommentType::class, )
-        
         return $this->render('AutoSerwisBundle:Main:post.html.twig', array(
             'post' => $post,
-            'form' => isset($form) ? $form->createView() : null
+            'form' => isset($form) ? $form->createView() : null,
         ));
     }
     
@@ -141,6 +139,30 @@ class MainController extends Controller
             'title' => 'Wyniki wyszukiwania: '.$search,
             'pagination' => $pagination,
             'search' => $search
+        ));
+    }
+    
+    /**
+     * @Route(
+     *      "/delete-comment/{id}",
+     *      name="delete_comment"
+     * )
+     */
+    public function deleteCommentAction(Comment $Comment) {
+        
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Nie masz dostępu do tego zadania.');
+        
+        if($Comment === null) {
+            throw $this->createNotFoundException('Post nie istnieje.');
+        } 
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($Comment);
+        $em->flush();
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+            'satus' => 'ok',
+            'msg' => 'Komentarz został usunięty'
         ));
     }
     

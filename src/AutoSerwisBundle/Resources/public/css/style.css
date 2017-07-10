@@ -170,23 +170,20 @@ hr {
     color: #000;
 }
 
-.right-menu, .tags {
+.right-menu, .tags, .top-commented {
     margin-top: 25px;
     padding: 5px;
     box-shadow: 1px 1px 2px #000;
     border-radius: 5px;
 }
 
-.right-menu h4 {
+.right-menu h4, .tags h4, .top-commented h4 {
     margin-left: 10px;
+    font-weight: bold;
 }
 
 .right-menu-content {
     margin-top: 20px;
-}
-
-.tags h4 {
-    margin-left: 10px;
 }
 
 .tags .tags-content a {
@@ -249,7 +246,17 @@ textarea.form-control {
     margin-bottom: 10px;
 }
 
+.comment-header blockquote a {
+    color: red;
+}
+
 .comment-content {
     font-size: 1.3em;
     padding: 20px;
+}
+
+.flash_msg {
+    width: 90%;
+    margin: 20px auto;
+    
 }

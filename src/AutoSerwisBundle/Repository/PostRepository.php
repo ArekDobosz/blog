@@ -38,4 +38,15 @@ class PostRepository extends EntityRepository{
         return $qb;
     }
     
+    public function topCommented($limit) {
+        
+        return $this->createQueryBuilder('p')
+                ->select('p.title, p.slug, COUNT(c) as commentsCount')
+                ->leftJoin('p.comments', 'c')
+                ->groupBy('p.title')
+                ->having('commentsCount > 0')
+                ->orderBy('commentsCount', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()->getArrayResult(); 
+    }
 }
