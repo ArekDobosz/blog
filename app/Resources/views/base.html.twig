@@ -40,8 +40,8 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                  <li class="active"><a href="{{ path('main_page') }}">Main<span class="sr-only">(current)</span></a></li>
-                  <li><a href="#">Link</a></li>
+                    {% block menu %}
+                    {% endblock %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div class="log-in">
@@ -68,6 +68,7 @@
         {% block javascripts %}
             <script src="{{ asset('bundles/autoserwis/js/jquery-3.2.1.min.js') }}"></script>
             <script src="{{ asset('bundles/autoserwis/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/autoserwis/js/script.js') }}"></script>
         {% endblock %}
     </body>
 </html>

@@ -1,0 +1,3 @@
+{% for tag in tags %}
+    <a style="font-size: {{ tag.fontSize }}em" href="{{ path('tag', {'slug': tag.slug}) }}">{{ tag.name }}</a>
+{% endfor %}

@@ -1,0 +1,9 @@
+<div class="flash">
+    {% for type,msg in app.session.flashbag.all() %}
+        {% for m in msg %}
+            <div class="alert alert-{{ type }} text-center">
+                <h3>{{ m }}</h3>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

@@ -1,0 +1,13 @@
+{% block flash_msg %}
+    <div class="flash_msg">
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} text-center">
+                        <h3>{{ message }}</h3>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

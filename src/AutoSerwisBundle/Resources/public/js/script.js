@@ -167,4 +167,8 @@ $(document).ready(function() {
             btn.addClass('hidden');
         }
     });
+    
+    $('td.tbl_actions a').first().click(function(e) {
+        confirm('Czy napewno usunąć post?');
+    });
 });

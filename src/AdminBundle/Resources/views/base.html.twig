@@ -1,0 +1,24 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block menu %}
+    {% set menu = {
+        'Dashboard': 'admin_dashboard',
+        'Posty': 'admin_posts',
+        'Tagi': 'admin_tags',
+        'Kategorie': 'admin_categories'
+    } %}
+    
+    {% for name, route in menu %}
+        {% if app.request.get('_route') == route %}
+            {% set class = 'active' %}
+        {% else %}
+            {% set class = '' %}
+        {% endif %}
+        <li class="{{ class }}"><a href="{{ path(route) }}">{{ name }}</a></li>
+    {% endfor %}
+    
+    {#<li class="active"><a href="{{ path('admin_dashboard') }}">Dashboard<span class="sr-only">(current)</span></a></li>
+    <li><a href="{{ path('admin_posts') }}">Posts</a></li>
+    <li><a href="{{ path('admin_tags') }}">Tags</a></li>
+    <li><a href="{{ path('admin_categories') }}">Categories</a></li>#}
+{% endblock %}

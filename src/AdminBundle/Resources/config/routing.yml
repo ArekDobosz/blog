@@ -1,0 +1,19 @@
+admin_dashboard:
+    resource: "@AdminBundle/Controller/DashboardController.php"
+    type: annotation
+    prefix: /dashboard
+    
+admin_tags:
+    resource: "@AdminBundle/Controller/TagsController.php"
+    type: annotation
+    prefix: /tags
+    
+admin_categories:
+    resource: "@AdminBundle/Controller/CategoriesController.php"
+    type: annotation
+    prefix: /categories
+    
+admin_posts:
+    resource: "@AdminBundle/Controller/PostsController.php"
+    type: annotation
+    prefix: /posts

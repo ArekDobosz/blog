@@ -1,0 +1,98 @@
+{% extends "AdminBundle::base.html.twig" %}
+
+{% block content %}
+    <div class="col-md-12">
+        {% include 'AutoSerwisBundle:Templates:flash_msg.html.twig' %}
+    </div>
+    <div class="edit-panel">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {% if post.id == null  %}
+                        <h4>Nowy post</h4>
+                    {% else %}
+                        <h4>Post id: {{ post.id }}</h4>
+                    {% endif %}
+                </div>
+                <div class="panel-body">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'} }) }}
+                    <div class="form-group">
+                        <div class="col-md-12">{{ form_label(form.title) }}</div>
+                        <div class="col-md-12">{{ form_widget(form.title, {'attr': {'class': 'form-control'}} ) }}</div>
+                        <div class="col-md-12 custom-error">{{ form_errors(form.title) }}</div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">{{ form_label(form.content) }}</div>
+                        <div class="col-md-12">{{ form_widget(form.content, {'attr': {'class': 'form-control', 'resize': 'none'}} ) }}</div>
+                        <div class="col-md-12 custom-error">{{ form_errors(form.content) }}</div>
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Kategoria</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(form.category, {'attr': {'class': 'form-control'}} ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Tagi</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(form.tags) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Opcje</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success'} }) }}
+                    <a class="btn btn-info" href="{{ path('admin_posts') }}">Powrót</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Miniaturka</h4>
+                </div>
+                <div class="panel-body">
+                    <img src="{{ asset(post.thumbnail) }}">
+                    <div class="col-md-12">
+                        {{ form_widget(form.thumbnailFile) }}
+                    </div>
+                    <div class="col-md-12 custom-error">{{ form_errors(form.thumbnailFile) }}</div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Data publikacji</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(form.createDate) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {{ form_end(form) }}           
+    </div>                
+{% endblock %}

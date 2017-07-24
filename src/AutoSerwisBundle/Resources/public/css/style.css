@@ -257,6 +257,81 @@ textarea.form-control {
 
 .flash_msg {
     width: 90%;
-    margin: 20px auto;
-    
+    margin: 20px auto;   
+}
+
+/*ADMIN*/
+
+.post_admin .panel-body {
+    padding: 20px;
+}
+
+.edit-panel img {
+    width: 330px;
+    max-height: 220px;
+    margin: 12px 10px 10px 10px;
+}
+
+.edit-panel input[type="file"], .edit-panel textarea {
+    margin-bottom: 10px;
+}
+
+.edit-panel button[type="submit"] {
+    margin: 5px;
+}
+
+#post_createDate {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#post_createDate input {
+    border-radius: 4px;
+    font-size: 1.1em;
+    margin-right: 3px;
+}
+
+#post_category {
+    margin-top: 15px;
+}
+
+#post_tags input {
+    margin: 15px;
+}
+
+#add_btn {
+    margin: 20px;
+    font-size: 2em;
+    color: rgba(0, 0, 0, .6);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+}
+
+td.tbl_actions a{
+    font-size: 1.7em;
+    color: #000;
+    margin-left: 5px;
+}
+
+td em.tbl_tag {
+    display: inline-block;
+    background-color: rgba(0, 255, 255, .4);
+    border-radius: 2px;
+    padding: 0 5px;
+}
+
+.sortable a.sortable, .sortable a.asc, .sortable a.desc {
+    padding-right: 15px;
+    color: #333;
+}
+
+.sortable a.sortable{
+    background: url(../img/icon-arrow-ns-dark.png) no-repeat right center;
+}
+
+.sortable a.asc {
+    background: url(../img/icon-arrow-down-dark.png) no-repeat right center;
+}
+
+.sortable a.desc {
+    background: url(../img/icon-arrow-up-dark.png) no-repeat right center;
 }

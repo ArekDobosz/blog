@@ -1,0 +1,10 @@
+{% for category in categories %}
+    {% if app.request.get('_route') == 'category' and app.request.get('slug') == category.slug %}
+        {% set class = 'active' %}
+    {% else %}
+        {% set class = '' %}
+    {% endif %}
+    <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="{{ class }}"><a href="{{ path('category', {'slug': category.slug}) }}">{{ category.name }}</a></li>
+    </ul>
+{% endfor %}

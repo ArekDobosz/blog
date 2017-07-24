@@ -3,6 +3,8 @@
 namespace AutoSerwisBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AutoSerwisBundle\Repository\PostRepository")
@@ -10,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  */
 class Post {
+    
+    const DEFAULT_THUMBNAIL = 'default-thumbnail.jpg';
+    const UPLOAD_DIR = 'uploads/thumbnails/';
     
     /**
      * @ORM\Column(type="integer")
@@ -20,6 +25,10 @@ class Post {
     
     /**
      * @ORM\Column(type="string", length=120, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 150
+     * )
      */
     private $title;
     
@@ -30,6 +39,10 @@ class Post {
     
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 1500
+     * )
      */
     private $content;
     
@@ -37,6 +50,21 @@ class Post {
      * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $thumbnail = null;
+    
+    /**
+     * @var UploadedFile
+     * 
+     * @Assert\Image(
+     *      minWidth = 300,
+     *      minHeight = 300,
+     *      maxWidth = 1920,
+     *      maxHeight = 1080,
+     *      maxSize = "7M"
+     * )
+     */
+    private $thumbnailFile;
+    
+    private $thumbnailTemp;
     
     /**
      * @ORM\ManyToOne(
@@ -69,7 +97,6 @@ class Post {
      * @ORM\JoinColumn(
      *      name = "author_id",
      *      referencedColumnName = "id",
-     * 
      * )
      */
     private $author;
@@ -89,6 +116,11 @@ class Post {
     private $comments;
     
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateDate;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -96,6 +128,16 @@ class Post {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getThumbnailFile() {
+        return $this->thumbnailFile;
+    }
+    
+    public function setThumbnailFile(UploadedFile $thumbnailFile) {
+        $this->thumbnailFile = $thumbnailFile;
+        $this->updateDate = new \DateTime;
+        return $this;
+    }
+    
     /**
      * Get id
      *
@@ -199,7 +241,10 @@ class Post {
      */
     public function getThumbnail()
     {
-        return $this->thumbnail;
+        if($this->thumbnail == null) {
+            return POST::UPLOAD_DIR.POST::DEFAULT_THUMBNAIL;
+        }
+        return POST::UPLOAD_DIR.$this->thumbnail;
     }
 
     /**
@@ -316,6 +361,30 @@ class Post {
         if(null === $this->slug){
             $this->setSlug($this->getTitle());
         }
+        
+        if(null !== $this->getThumbnailFile()) {
+            if(null !== $this->thumbnail){
+                $this->thumbnailTemp = $this->thumbnail;
+            }
+            $thumbnailName = sha1(uniqid(null, true));
+            $this->thumbnail = $thumbnailName.'.'.$this->getThumbnailFile()->guessExtension();
+        }
+    }
+    
+    /**
+     * @ORM\PostPersist
+     * @ORM\PostUpdate
+     */
+    public function postSave() {
+        if(null !== $this->getThumbnailFile()) {
+            $this->getThumbnailFile()->move($this->getUploadedRootDir(), $this->thumbnail);
+            unset($this->thumbnailFile);
+            
+            if(null !== $this->thumbnailTemp){
+                unlink($this->getUploadedRootDir().$this->thumbnailTemp);
+                unset($this->thumbnailTemp);
+            }
+        }
     }
 
     /**
@@ -350,5 +419,33 @@ class Post {
     public function getComments()
     {
         return $this->comments;
+    }
+    
+    /**
+     * Set updateDate
+     *
+     * @param \DateTime $updateDate
+     *
+     * @return User
+     */
+    public function setUpdateDate($updateDate)
+    {
+        $this->updateDate = $updateDate;
+
+        return $this;
+    }
+
+    /**
+     * Get updateDate
+     *
+     * @return \DateTime
+     */
+    public function getUpdateDate()
+    {
+        return $this->updateDate;
+    }
+    
+    public function getUploadedRootDir(){
+        return __DIR__.'/../../../web/'.POST::UPLOAD_DIR;
     }
 }
