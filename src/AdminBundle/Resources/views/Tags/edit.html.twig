@@ -1,0 +1,21 @@
+{% extends "AdminBundle::base.html.twig" %}
+
+{% block content %}
+    <div class="post-admin">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Tagi
+            </div>
+            <div class="panel-body">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'} }) }}
+                <div class="form-group">
+                    {{ form_label(form.name) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'} }) }}
+                    <div class="custom-error">{{ form_errors(form.name) }}</div>
+                </div>
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success'} }) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

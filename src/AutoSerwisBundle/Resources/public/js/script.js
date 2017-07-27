@@ -171,4 +171,15 @@ $(document).ready(function() {
     $('td.tbl_actions a').first().click(function(e) {
         confirm('Czy napewno usunąć post?');
     });
+    
+    
+    var limit = $('#post_per_page');
+    limit.find('[name="limit"]').change(function() {
+            limit.submit();
+    });
+    
+    var tagForm = $('form#tag_form');
+    tagForm.find('[name="tag_name"]').change(function() {
+            tagForm.submit();
+    })
 });

@@ -14,6 +14,11 @@ class PostRepository extends EntityRepository{
                 ->leftJoin('p.author', 'a')
                 ->leftJoin('p.tags', 't');
         
+        if(!empty($params['published'])) {           
+            $qb->andWhere('p.createDate <= :today and p.createDate IS NOT NULL')
+            ->setParameter('today', new \DateTime());
+        }
+        
         if(!empty($params['orderBy'])) {
             $orderDir = !empty($params['orderDir']) ? $params['orderDir'] : 'ASC';
             $qb->orderBy($params['orderBy'], $orderDir);
@@ -33,6 +38,15 @@ class PostRepository extends EntityRepository{
             $search = '%'.$params['search'].'%';
             $qb->andWhere('p.content LIKE :search OR p.title LIKE :search')
                     ->setParameter('search', $search);
+        }
+        
+        if(!empty($params['category'])) {
+            if($params['category'] != -1) {
+                $qb->andWhere('c.id = :category')
+                    ->setParameter('category', $params['category']);
+            } else {
+                $qb->andWhere($qb->expr()->isNull('p.category'));
+            }
         }
         
         return $qb;

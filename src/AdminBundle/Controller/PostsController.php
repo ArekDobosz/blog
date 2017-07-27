@@ -19,17 +19,31 @@ class PostsController extends Controller
      *      requirements = {"page" = "\d+"}
      * )
      */
-    public function indexAction($page)
+    public function indexAction(Request $request, $page)
     {
-        $posts = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post')->getQueryBuilder([
+        $filters = array(
+            'search' => $request->query->get('post_search'),
+            'category' => $request->query->get('category'),
             'orderBy' => 'p.createDate',
             'orderDir' => 'DESC'
-            ]);
+        );
+        
+        $currLimit = $request->query->get('limit', 5);
+        $posts = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post')->getQueryBuilder($filters);
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($posts, $page, 4);
+        $pagination = $paginator->paginate($posts, $page, $currLimit);
+        
+        $categories = $this->getDoctrine()->getRepository("AutoSerwisBundle:Category")->findAll();
+        
+        $limits = [3, 5, 10, 15];
         
         return $this->render('AdminBundle:Posts:index.html.twig', array(
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'categories' => $categories,
+            'selectedCat' => $filters['category'],
+            'search' => $filters['search'],
+            'limits' => $limits,
+            'currLimit' => $currLimit
         ));
     }
     

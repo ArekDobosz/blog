@@ -16,9 +16,5 @@
         {% endif %}
         <li class="{{ class }}"><a href="{{ path(route) }}">{{ name }}</a></li>
     {% endfor %}
-    
-    {#<li class="active"><a href="{{ path('admin_dashboard') }}">Dashboard<span class="sr-only">(current)</span></a></li>
-    <li><a href="{{ path('admin_posts') }}">Posts</a></li>
-    <li><a href="{{ path('admin_tags') }}">Tags</a></li>
-    <li><a href="{{ path('admin_categories') }}">Categories</a></li>#}
+    <span class="admin_marker text-center">ADMIN PANEL</span>
 {% endblock %}

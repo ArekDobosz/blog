@@ -37,6 +37,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {{ form_widget(form.category, {'attr': {'class': 'form-control'}} ) }}
+                            <div class="col-md-12 custom-error">{{ form_errors(form.category) }}</div>
                         </div>
                     </div>
                 </div>
@@ -50,6 +51,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             {{ form_widget(form.tags) }}
+                            <div class="col-md-12 custom-error">{{ form_errors(form.tags) }}</div>
                         </div>
                     </div>
                 </div>

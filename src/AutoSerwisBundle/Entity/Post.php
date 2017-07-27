@@ -74,7 +74,8 @@ class Post {
      * @ORM\JoinColumn(
      *      name = "category_id",
      *      referencedColumnName = "id",
-     *      onDelete = "SET NULL"
+     *      onDelete = "SET NULL",
+     *      nullable = true
      * )
      */
     private $category;

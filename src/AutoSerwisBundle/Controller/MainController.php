@@ -25,7 +25,8 @@ class MainController extends Controller
     {
         $pagination = $this->getPaginatedPost(array(
             'orderBy' => 'p.createDate',
-            'orderDir' => 'DESC'
+            'orderDir' => 'DESC',
+            'published' => true
         ), $page);
         
         return $this->render('AutoSerwisBundle:Main:index.html.twig', array(

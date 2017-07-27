@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -26,8 +26,11 @@ class PostType extends AbstractType {
                 ->add('title', TextType::class, array(
                     'label' => 'Tytuł'
                 ))
-                ->add('content', TextareaType::class, array(
+                ->add('content', CKEditorType::class, array(
                     'label' => 'Treść posta',
+                    'config' => array(
+                        'uiColor' => '#ffffff'
+                    )
                 ))
                 ->add('thumbnailFile', FileType::class, array(
                     'label' => 'Miniaturka',
@@ -41,7 +44,9 @@ class PostType extends AbstractType {
                 ->add('category', EntityType::class, array(
                     'label' => 'Kategoria',
                     'class' => 'AutoSerwisBundle:Category',
-                    'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'required' => false,
+                    'empty_data' => 'Brak kategorii',
                 ))
                 ->add('tags', EntityType::class, array(
                     'label' => 'Tagi',
@@ -57,7 +62,7 @@ class PostType extends AbstractType {
     
     public function setDefaultOptions(OptionsResolver $resolver){
         $resolver->setDefaults(array(
-           'data_class' => 'AutoSerwis\Bundle\Entity\Post' 
+           'data_class' => 'AutoSerwis\Bundle\Entity\Post'
         ));
     }
     

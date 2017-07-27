@@ -335,3 +335,14 @@ td em.tbl_tag {
 .sortable a.desc {
     background: url(../img/icon-arrow-up-dark.png) no-repeat right center;
 }
+
+.admin_marker {
+    display: inline-block;
+    font-size: 1.5em;
+    color: green;
+    background-color: antiquewhite;
+    padding-top: 10px;
+    height: 50px;
+    width: 250px;
+    margin-left: 160px;
+}
