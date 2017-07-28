@@ -9,7 +9,7 @@
             <div class="post">
                 <h3>{{ post.title }}</h3>
                 <div class="detals">
-                    <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:i:s') }}</div>
+                    <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:i') }}</div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading"><div class="cat">Kategoria: <a href="{{ path('category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a></div>

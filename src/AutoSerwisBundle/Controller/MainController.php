@@ -31,7 +31,7 @@ class MainController extends Controller
         
         return $this->render('AutoSerwisBundle:Main:index.html.twig', array(
             'pagination' => $pagination,
-            'title' => 'Lista postów'
+            'title' => 'ITModernGirl'
         ));
     }
     

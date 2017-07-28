@@ -8,7 +8,7 @@
                 {{ taxName }}
             </div>
             <div class="panel-body">
-                <div class="col-md-12"><a id="add_btn" href="{{ path(taxPath) }}" class="pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Dodaj nowy tag</a></div>
+                <div class="col-md-12"><a id="add_btn" href="{{ path(taxPath) }}" class="pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Dodaj</a></div>
                 <div class="col-md-12">
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
@@ -27,7 +27,7 @@
                                     <td>{{ tax.name }}</td>
                                     <td>{{ row.ile }}</td>
                                     <td class="tbl_actions">
-                                        <a href="" title="Usuń"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
+                                        <a href="{{ path(deletePath, {'id': tax.id}) }}" title="Usuń"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
                                         <a href="{{ path(taxPath, {'id': tax.id}) }}" title="Edycja"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
@@ -38,5 +38,5 @@
             </div>
         </div>
     </div>
-                            {{ knp_pagination_render(pagination) }}
+                            <div class="text-center">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

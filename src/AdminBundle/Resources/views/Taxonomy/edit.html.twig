@@ -15,6 +15,11 @@
                             {{ form_widget(form.name, {'attr': {'class': 'form-control'} }) }}
                             <div class="custom-error">{{ form_errors(form.name) }}</div>
                         </div>
+                        <div class="form-group">
+                            {{ form_label(form.slug) }}
+                            {{ form_widget(form.slug, {'attr': {'class': 'form-control'} }) }}
+                            <div class="custom-error">{{ form_errors(form.slug) }}</div>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         {{ form_widget(form.submit, {'attr': {'class': 'btn btn-info btn-block'} }) }}

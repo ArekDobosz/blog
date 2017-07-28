@@ -135,7 +135,7 @@ class Post {
     
     public function setThumbnailFile(UploadedFile $thumbnailFile) {
         $this->thumbnailFile = $thumbnailFile;
-        $this->updateDate = new \DateTime;
+        $this->updateDate = new \DateTime();
         return $this;
     }
     

@@ -346,3 +346,7 @@ td em.tbl_tag {
     width: 250px;
     margin-left: 160px;
 }
+
+.post-admin .panel .panel-body {
+    margin-bottom: 30px;
+}
