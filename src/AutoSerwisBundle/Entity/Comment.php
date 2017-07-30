@@ -145,11 +145,11 @@ class Comment {
     /**
      * Set author
      *
-     * @param \AutoSerwisBundle\Entity\User $author
+     * @param string $author
      *
      * @return Comment
      */
-    public function setAuthor(\AutoSerwisBundle\Entity\User $author)
+    public function setAuthor($author)
     {
         $this->author = $author;
 

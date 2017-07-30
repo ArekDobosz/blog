@@ -27,7 +27,7 @@
                                     <td>{{ tax.name }}</td>
                                     <td>{{ row.ile }}</td>
                                     <td class="tbl_actions">
-                                        <a href="{{ path(deletePath, {'id': tax.id}) }}" title="Usuń"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
+                                        <a href="{{ path(deletePath, {'id': tax.id, 'token': csrf_token('deleteTax-' ~ tax.id)}) }}" title="Usuń"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
                                         <a href="{{ path(taxPath, {'id': tax.id}) }}" title="Edycja"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>

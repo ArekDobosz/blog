@@ -12,7 +12,7 @@
               rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
               crossorigin="anonymous">#}
         
-        <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Anton|Oxygen" rel="stylesheet">
         
         {% block stylesheets %}
               <link rel="stylesheet" href="{{ asset('bundles/autoserwis/css/html5reset.css') }}">  
@@ -24,7 +24,7 @@
         
     </head>
     <body>  
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container">
               <!-- Brand and toggle get grouped for better mobile display -->
               <div class="navbar-header">
@@ -44,15 +44,13 @@
                     {% endblock %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <div class="log-in">
-                        
+                    <span class="social"><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></span>
+                    <span class="social"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></span>
+                    <span class="social"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></span>
+                    <span class="social log-in">                       
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}#} 
-                            <i class="fa fa-user-o" aria-hidden="true"></i> 
                             {% if is_granted('ROLE_ADMIN') %}
-{#                                {% if  app.request.get('_route') != 'admin_*'  %}#}
-                                    <a href="{{ path('admin_dashboard') }}">(admin_panel)</a>
-{#                                {% endif %}#}
+                                <a href="{{ path('admin_dashboard') }}">(admin_panel)</a>
                             {% endif %}
                             <a href="{{ path('fos_user_profile_show') }}">
                                 {{ app.user.username }}
@@ -61,8 +59,14 @@
                                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                             </a>
                         {% else %}
-                            <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                        {% endif %}
+                            <a href="{{ path('fos_user_security_login') }}">zaloguj się</a>
+                        {% endif %}                       
+                    </span>
+                    
+                    
+                    <div class="log-in">
+                        
+                        
                         
                     </div>
                 </ul>
@@ -71,7 +75,15 @@
           </nav>
         
         <div class="container">
-            {% block content %}{% endblock %}
+            
+            {% block content %}
+                {% if hideLogo %}
+                    <div class="logo">
+                        <img src="{{ asset('bundles/autoserwis/img/logoIT.png') }}" width="120">
+                        <div class="text">pasja-rozwój-sukces!</div>
+                    </div>
+                {% endif %}           
+            {% endblock %}
         </div>
         {% block javascripts %}
             <script src="{{ asset('bundles/autoserwis/js/jquery-3.2.1.min.js') }}"></script>

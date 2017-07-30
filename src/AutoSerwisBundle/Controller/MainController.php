@@ -11,7 +11,7 @@ use AutoSerwisBundle\Form\CommentType;
 
 class MainController extends Controller
 {
-    private $itemsLimit = 4;
+    private $itemsLimit = 3;
     
     /**
      * @Route(
@@ -31,7 +31,7 @@ class MainController extends Controller
         
         return $this->render('AutoSerwisBundle:Main:index.html.twig', array(
             'pagination' => $pagination,
-            'title' => 'ITModernGirl'
+            'title' => 'Lista postów',
         ));
     }
     
@@ -49,23 +49,21 @@ class MainController extends Controller
             throw $this->createNotFoundException('Nie znaleziono postu');
         }
         
-        if(null !== $this->getUser()){
-            $Comment = new Comment();
-            $Comment->setAuthor($this->getUser())
-                    ->setPost($post);
-            
-            $form = $this->createForm(CommentType::class, $Comment);
-            
-            if($Request->isMethod('POST')) {
-                $form->handleRequest($Request);
-                if($form->isValid() && $form->isSubmitted()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($Comment);
-                    $em->flush();
-                    
-                    $this->get('session')->getFlashBag()->add('success', 'Komentarz został dodany.');
-                    return $this->redirectToRoute('post', array('slug' => $slug));
-                }
+        $Comment = new Comment();
+        $Comment->setAuthor($this->getUser())
+                ->setPost($post);
+
+        $form = $this->createForm(CommentType::class, $Comment);
+
+        if($Request->isMethod('POST')) {
+            $form->handleRequest($Request);
+            if($form->isValid() && $form->isSubmitted()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($Comment);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('success', 'Komentarz został dodany.');
+                return $this->redirectToRoute('post', array('slug' => $slug));
             }
         }
         
@@ -149,13 +147,18 @@ class MainController extends Controller
      *      name="delete_comment"
      * )
      */
-    public function deleteCommentAction(Comment $Comment) {
+    public function deleteCommentAction(Request $request, Comment $Comment) {
         
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Nie masz dostępu do tego zadania.');
         
         if($Comment === null) {
             throw $this->createNotFoundException('Post nie istnieje.');
         } 
+        
+        if(!$this->isCsrfTokenValid('deleteComment-'.$Comment->getId(), $request->get('token'))) {
+//            $this->get('session')->getFlashBag()->add('danger', 'Błędny token akcji.');
+            throw $this->createAccessDeniedException('Brak uprawnień do wykonania akcji.');
+        }
         
         $em = $this->getDoctrine()->getManager();
         $em->remove($Comment);

@@ -2,3 +2,8 @@ auto_serwis_main:
     resource: "@AutoSerwisBundle/Controller/MainController.php"
     type:     annotation
     prefix:   /
+    
+auto_serwis_contact:
+    resource: "@AutoSerwisBundle/Controller/ContactController.php"
+    type:     annotation
+    prefix:   /contact

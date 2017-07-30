@@ -104,9 +104,14 @@ class PostsController extends Controller
      *      requirements = {"id" = "\d+"}
      * )
      */
-    public function deletePostAction($id){
+    public function deletePostAction(Request $request, $id){
         
         $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Nie masz uprawnień do wykonania tej akcji');
+        
+        if(!$this->isCsrfTokenValid('deletePost-'.$id, $request->get('token'))) {
+            $this->get('session')->getFlashBag()->add('danger', 'Błędny token akcji.');
+            return $this->redirectToRoute('admin_posts');
+        }
         
         $Post = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post')->find($id);
         

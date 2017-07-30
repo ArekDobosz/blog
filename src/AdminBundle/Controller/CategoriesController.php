@@ -80,9 +80,14 @@ class CategoriesController extends Controller
      *      name="admin_category_delete"
      * )
      */
-    public function deleteAction(Category $Category) {
+    public function deleteAction(Request $request, Category $Category) {
         
         if($Category == null) throw $this->createNotFoundException ('Nie znaleziono kategorii.');
+        
+        if(!$this->isCsrfTokenValid('deleteTax-'.$Category->getId(), $request->get('token'))) {
+            $this->get('session')->getFlashBag()->add('danger', 'Błędny token akcji.');
+            return $this->redirectToRoute('admin_categories');
+        }
         
         $em = $this->getDoctrine()->getManager();
         $em->remove($Category);

@@ -7,7 +7,7 @@
         {% for post in pagination %}
             
             <div class="post">
-                <h3>{{ post.title }}</h3>
+                <span class="post-title"><h2 class="text-center">{{ post.title }}</h2></span>
                 <div class="detals">
                     <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:i') }}</div>
                 </div>
@@ -40,33 +40,7 @@
         </div>
         
     </div>
-
-    <div class="right-side text-center search-form">
-        <form action="{{ path('search') }}">
-            <input type="text" name="search" value="{{ search is defined ? search : '' }}" placeholder="Wyszukaj">          
-        </form>
-    </div>
         
-    <div class="right-side">
-        <div class="right-menu">
-            <h4>Kategorie</h4>
-            <hr>
-            <div class="right-menu-content">
-                {{ printMenu() }}
-            </div>
-        </div>
-        <div class="tags">
-            <h4>Tags</h4>
-            <hr>
-            <div class="tags-content">
-                {{ tagsCloud() }}            
-            </div>
-        </div>
-        <div class="top-commented">
-            <h4>Najczęściej komentowane</h4>
-            <hr>
-            {{ topCommented() }}
-        </div>
-    </div>
+        {% include 'AutoSerwisBundle:Templates:right_side.html.twig' %}
     
 {% endblock %}

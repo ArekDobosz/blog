@@ -79,9 +79,14 @@ class TagsController extends Controller
      *      name="admin_tag_delete"
      * )
      */
-    public function deleteAction(Tag $Tag) {
+    public function deleteAction(Request $request, Tag $Tag) {
         
         if($Tag == null) throw $this->createNotFoundException ('Nie znaleziono tagu.');
+        
+        if(!$this->isCsrfTokenValid('deleteTax-'.$Tag->getId(), $request->get('token'))) {
+            $this->get('session')->getFlashBag()->add('danger', 'Błędny token akcji.');
+            return $this->redirectToRoute('admin_tags');
+        }
         
         $em = $this->getDoctrine()->getManager();
         $em->remove($Tag);

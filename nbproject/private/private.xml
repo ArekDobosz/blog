@@ -3,15 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/xampp/htdocs/autoserwis/src/AdminBundle/Resources/views/Taxonomy/index.html.twig</file>
             <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Controller/MainController.php</file>
-            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Resources/views/Main/post.html.twig</file>
-            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Resources/views/base.html.twig</file>
             <file>file:/D:/xampp/htdocs/autoserwis/src/AdminBundle/Resources/views/Posts/index.html.twig</file>
             <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Resources/public/css/style.css</file>
-            <file>file:/D:/xampp/htdocs/autoserwis/src/AdminBundle/Controller/PostsController.php</file>
             <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Form/CommentType.php</file>
-            <file>file:/D:/xampp/htdocs/autoserwis/src/AdminBundle/Resources/views/Posts/edit.html.twig</file>
-            <file>file:/D:/xampp/htdocs/autoserwis/src/AdminBundle/Resources/views/Dashboard/index.html.twig</file>
+            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Controller/ContactController.php</file>
+            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Resources/config/routing.yml</file>
+            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Form/ContactType.php</file>
+            <file>file:/D:/xampp/htdocs/autoserwis/src/AutoSerwisBundle/Resources/views/Contact/showForm.html.twig</file>
             <file>file:/D:/xampp/htdocs/autoserwis/app/Resources/views/base.html.twig</file>
         </group>
     </open-files>

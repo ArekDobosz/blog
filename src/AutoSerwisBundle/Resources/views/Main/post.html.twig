@@ -1,74 +1,82 @@
 {% extends "AutoSerwisBundle::base.html.twig" %}
 
 {% block pageContent %}
-   <div class="single-post">
-        <h3 class="text-center">{{ post.title }}</h3>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="detals">
-                    <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:m') }}</div>
-                </div>  
+    <div class="left-side">
+        <div class="single-post">
+            <div class="post-title">
+                <h3 class="text-center">{{ post.title }}</h3>
             </div>
-            <div class="panel-body">
-                <img src="{{ asset(post.thumbnail) }}">
-                <div class="post-content">
-                    {{ post.content | raw }}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="detals">
+                        <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:m') }}</div>
+                    </div>  
+                </div>
+                <div class="panel-body">
+                    <img src="{{ asset(post.thumbnail) }}">
+                    <div class="post-content">
+                        {{ post.content | raw }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="cat">Kategoria: <a href="{{ path('category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a></div>
-        <div class="tag">Tag:
-            {% for tag in post.tags %}
-                <a href="{{ path('tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="comments" id="comments">
-        <div class="panel panel-info">
-            <div class="panel-heading text-center">
-                <h3>Komentarze ({{ post.comments | length }}):</h3>
-            </div>
-            {% include ':default:flash_msg.html.twig' %}
-            <div class="panel-body">
-                {% if app.user %}
-                    {{ form_start(form, {'action': '#comments', 'attr': {novalidate: 'novalidate'} }) }}
-                        {% if form_errors(form.content) %}
-                            {% set class = 'has-error' %}
-                        {% else %}
-                            {% set class = '' %}
-                        {% endif %}
-                        <div class="form-group {{ class }}">                            
-                            {{ form_widget(form.content, {'attr': {'class': 'form-control', 'resize': 'none'}} ) }}
-                            <div class="custom-error">{{ form_errors(form.content) }}</div>
-                        </div>
-                        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-info'}} ) }}                     
-                    {{ form_end(form) }}
-                {% else %}
-                    <h3 class="text-center">aby dodać komentarz musisz się <a href="{{ path('fos_user_security_login') }}">zalogować</a></h3> 
-                {% endif %}
-                    {% for comment in post.comments %}
-                    <div class="single-comment">
-                        <div class="comment-header col-md-3">
-                            <blockquote>dodał: {{comment.author.username}}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a id="post-delete" href="{{ path('delete_comment', {'id': comment.id}) }}"><br> <i class="fa fa-trash" aria-hidden="true"></i> Usuń</a>
-                            {% endif %}
-                            </blockquote>
-                            <img src="{{ asset(comment.author.avatar) }}" height="75px">
-                            <p>dodano: {{ comment.createdAt | date('d-m-Y H:m') }}</p>
-                        </div>
-                        <div class="comment-content col-md-9">
-
-                            <p>{{comment.content}}</p>
-                        </div>
-                        <div class="col-md-12">
-                            <hr>
-                        </div>
-                    </div>
+            <div class="cat">Kategoria: <a href="{{ path('category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a></div>
+            <div class="tag">Tag:
+                {% for tag in post.tags %}
+                    <a href="{{ path('tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>
                 {% endfor %}
             </div>
         </div>
+        <div class="comments" id="comments">
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">
+                    <h3>Komentarze ({{ post.comments | length }}):</h3>
+                </div>
+                {% include ':default:flash_msg.html.twig' %}
+                <div class="panel-body">
+                    {% if app.user %}
+                        {{ form_start(form, {'action': '#comments', 'attr': {novalidate: 'novalidate', 'id': 'comment-form'} }) }}
+                            <div class="form-group">                            
+                                {{ form_widget(form.content, {'attr': {'class': 'form-control', 'resize': 'none', 'placeholder': 'Treść komentarza'}} ) }}
+                                <div class="custom-error">{{ form_errors(form.content) }}</div>
+                            </div>
+                            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-info pull-right'}} ) }}                     
+                        {{ form_end(form) }}
+                    {% else %}
+                        <h4 class="text-center">Aby sie dodać komentarz musisz się <a href="{{ path('fos_user_security_login') }}">zalogować</a></h4>
+                    {% endif %}
+                        {% for comment in post.comments %}
+                        <div class="single-comment">
+                            <div class="comment-header col-md-3">
+                                <blockquote>dodał: {{comment.author.username}}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a id="post-delete" href="{{ path('delete_comment', {'id': comment.id, 'token': csrf_token('deleteComment-' ~ comment.id )}) }}">
+                                        <br> <i class="fa fa-trash" aria-hidden="true"></i> Usuń
+                                    </a>
+                                {% endif %}
+                                </blockquote>
+{#                                <img src="{{ asset(comment.author.avatar) }}" height="75px">#}
+                                <img src="{{ asset(comment.author.avatar) }}" height="75px">
+                                <p>dodano: {{ comment.createdAt | date('d-m-Y H:m') }}</p>
+                            </div>
+                            <div class="comment-content col-md-8">
+                                <p>{{comment.content}}</p>
+                            </div>
+                            {#<div class="col-md-12">
+                                <div class="thumbs pull-right">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                </div>
+                            </div>#}
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
+                    {% include 'AutoSerwisBundle:Templates:right_side.html.twig' %}
 {% endblock %}
 
 {% if is_granted('ROLE_ADMIN') %}
