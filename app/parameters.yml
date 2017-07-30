@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: mysql.cba.pl
+    database_port: null
+    database_name: arqus999
+    database_user: arkus999
+    database_password: Marzenka89
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: botblackd988@gmail.com
+    mailer_password: 2009emilek09
+    secret: d25eddf74e35f2673d69e90481eabf68ade11b95
