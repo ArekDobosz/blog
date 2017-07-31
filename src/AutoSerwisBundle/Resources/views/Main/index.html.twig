@@ -12,7 +12,16 @@
                     <div class="author">dodał: {{ post.author.username }}</div> <div class="create-date">dodano: {{ post.createDate | date ('d-m-Y H:i') }}</div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading"><div class="cat">Kategoria: <a href="{{ path('category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a></div>
+                    <div class="panel-heading">
+                        <div class="cat">Kategoria: 
+                            {% if post.category %}
+                            <a href="{{ path('category', {'slug': post.category.slug}) }}">
+                                {{ post.category.name }}
+                            </a>
+                            {% else %}
+                                Brak przypisanej kategorii  
+                            {% endif %}
+                        </div>
                         <div class="tag">Tag:
                             {% for tag in post.tags %}
                                 <a href="{{ path('tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>

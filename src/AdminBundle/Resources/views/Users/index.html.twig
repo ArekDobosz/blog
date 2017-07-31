@@ -1,0 +1,44 @@
+{% extends "AdminBundle::base.html.twig" %}
+
+{% block content %}
+    {% include "AutoSerwisBundle:Templates:flash_msg.html.twig" %}
+    <div class="post-admin">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Użytkownicy
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12"><a id="add_btn" href="#" class="pull-right"><i class="fa fa-plus-square" aria-hidden="true"></i> Dodaj</a></div>
+                <div class="col-md-12">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sortable">{{ knp_pagination_sortable(pagination, 'Id', 'id') }}</th>
+                                <th class="sortable">{{ knp_pagination_sortable(pagination, 'Nazwa', 'username') }}</th>
+                                <th class="sortable">{{ knp_pagination_sortable(pagination, 'Email', 'email') }}</th>
+                                <th>Konto aktywne</th>
+                                <th>Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in pagination %}
+                                <tr>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.enabled ? 'Aktywne' : 'Nieaktywne' }}</td>
+                                    <td class="tbl_actions">
+                                        <a href="#" title="Usuń"><i class="fa fa-trash-o" aria-hidden="true"></i></a> 
+                                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" title="Edycja"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+                            {{ dump(pagination) }}
+                            <div class="text-center">{{ knp_pagination_render(pagination) }}</div>
+{% endblock %}

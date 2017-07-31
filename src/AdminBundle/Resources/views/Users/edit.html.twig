@@ -1,0 +1,38 @@
+{% extends "AdminBundle::base.html.twig" %}
+
+{% block content %}
+    {% include "AutoSerwisBundle:Templates:flash_msg.html.twig" %}
+    <div class="post-admin">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Użytkownicy
+                </div>
+                <div class="panel-body">
+
+                    {{form_start(form, {'attr': {'novalidate': 'novalidate'} })}}
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.username) }}
+                                {{ form_widget(form.username, {'attr': {'class': 'form-control'} }) }}
+                                <div class="custom-error">{{ form_errors(form.username) }}</div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control'} }) }}
+                                <div class="custom-error">{{ form_errors(form.email) }}</div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.enabled) }}
+                                {{ form_widget(form.enabled, {'attr': {'class': 'form-control'} }) }}
+                                <div class="custom-error">{{ form_errors(form.enabled) }}</div>
+                            </div>
+
+                        </div>
+                    {{ form_end(form) }}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

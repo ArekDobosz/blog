@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AutoSerwisBundle\Entity\Category;
 use AdminBundle\Form\TagCategoryType;
+use AutoSerwisBundle\Entity\Post;
 
 class CategoriesController extends Controller
 {
@@ -89,11 +90,19 @@ class CategoriesController extends Controller
             return $this->redirectToRoute('admin_categories');
         }
         
+        $Posts = $this->getDoctrine()->getRepository('AutoSerwisBundle:Post')->getQueryBuilder(array('category' => $Category->getName()));
+        
         $em = $this->getDoctrine()->getManager();
+        
+        foreach($Posts as $Post){
+            $Post->setCategory(null);
+            $em->persist($Post);
+        }
+        
         $em->remove($Category);
         $em->flush();
         
-        $this->get('session')->getFlashBag()->add('success', 'Kategoria "'.$Category->getName().'" została usunięta');
+        $this->get('session')->getFlashBag()->add('success', 'Kategoria "'.$Category->getName().'" została usunięta. Posty powiązane z kategorią zostały ustawione na "Bez kategorii."');
         
         return $this->redirectToRoute('admin_categories');       
     }

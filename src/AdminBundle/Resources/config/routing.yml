@@ -17,3 +17,8 @@ admin_posts:
     resource: "@AdminBundle/Controller/PostsController.php"
     type: annotation
     prefix: /posts
+    
+admin_users:
+    resource: "@AdminBundle/Controller/UsersController.php"
+    type: annotation
+    prefix: /users
