@@ -71,7 +71,8 @@ class CategoriesController extends Controller
         
         return $this->render('AdminBundle:Taxonomy:edit.html.twig', array(
             'form' => $form->createView(),
-            'taxonomyName' => 'Kategorie'
+            'taxonomyName' => 'Kategorie',
+            'setClass' => 'admin_categories'
         ));
     }
     

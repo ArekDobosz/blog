@@ -93,7 +93,8 @@ class PostsController extends Controller
         
         return $this->render('AdminBundle:Posts:edit.html.twig', array(
             'form' => $form->createView(),
-            'post' => $Post
+            'post' => $Post,
+            'setClass' => 'admin_posts'
         ));
     }
     

@@ -13,7 +13,11 @@
         {% if app.request.get('_route') == route %}
             {% set class = 'active' %}
         {% else %}
-            {% set class = '' %}
+            {% if setClass is defined and setClass == route %}
+                {% set class = 'active' %}
+            {% else %}
+                {% set class = '' %}
+            {% endif %}
         {% endif %}
         <li class="{{ class }}"><a href="{{ path(route) }}">{{ name }}</a></li>
     {% endfor %}

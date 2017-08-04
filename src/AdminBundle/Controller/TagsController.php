@@ -69,7 +69,8 @@ class TagsController extends Controller
         
         return $this->render('AdminBundle:Taxonomy:edit.html.twig', array(
             'form' => $form->createView(),
-            'taxonomyName' => 'Tag'
+            'taxonomyName' => 'Tag',
+            'setClass' => 'admin_tags'
         ));      
     }
     

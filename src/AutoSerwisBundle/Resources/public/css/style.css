@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5 {
 
 ul.nav li, a.navbar-brand {
     font-family: 'Anton', sans-serif;
-    font-size: 1.6em;
+    font-size: 1em;
 }
 
 .social {
@@ -391,13 +391,13 @@ td em.tbl_tag {
 
 .admin_marker {
     display: inline-block;
-    font-size: 1.5em;
+    font-size: 1em;
     color: green;
     background-color: antiquewhite;
     padding-top: 10px;
     height: 50px;
-    width: 250px;
-    margin-left: 160px;
+    width: 150px;
+    margin-left: 100px;
 }
 
 .post-admin .panel .panel-body {
