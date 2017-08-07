@@ -3,8 +3,8 @@ Blog
 A Symfony project created on June 27, 2017, 10:56 am.
 
 Requirements before first run: <br>
-  You have to write in console: <br>
-    /* to create database and admin account */<br>
+  You have to write in console (to create database and admin account): <br>
+
     
         $ php bin/console doctrine:database:create
         
