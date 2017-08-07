@@ -1,6 +1,6 @@
 Blog 
 
-A Symfony project created on June 27, 2017, 10:56 am.
+A Symfony 3.3.2 project created on June 27, 2017, 10:56 am.
 
 Requirements before first run: <br>
   You have to write in console (to create database and admin account): <br>
