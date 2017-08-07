@@ -2,4 +2,6 @@
     <div class="nav nav-pills nav-stacked">
         <li role="presentation"><a href="{{ path('post', {'slug': post.slug}) }}">{{ post.title }} ({{ post.commentsCount }})</a></li>
     </div>
+{% else %}
+    <p>Nie dodano jeszcze żadnego komentarza</p>
 {% endfor %}

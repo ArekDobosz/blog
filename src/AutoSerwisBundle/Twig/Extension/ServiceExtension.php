@@ -59,7 +59,10 @@ class ServiceExtension extends \Twig_Extension {
         
         $Repo = $this->doctrine->getRepository('AutoSerwisBundle:Tag');
         $tags = $Repo->getTagsList();
-        $tags = $this->prepareTagsCloud($tags, $limit = 20, $minFont, $maxFont);
+        if(count($tags) != 0) { 
+            $tags = $this->prepareTagsCloud($tags, $limit = 20, $minFont, $maxFont);
+        } 
+        
         
         return $this->environment->render('AutoSerwisBundle:Templates:tagsCloud.html.twig', array(
             'tags' => $tags
